@@ -1,10 +1,14 @@
+import axios from 'axios';
 import useForm from "./useForm.ts";
+import {BASE_URL} from "../utils/axios.ts";
+
+interface LoginForm {
+    email: string;
+    password: string;
+}
 
 interface UseLoginReturn {
-    form: {
-        email: string;
-        password: string;
-    };
+    form: LoginForm;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     error: { [key: string]: string } | null;
     handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -12,32 +16,21 @@ interface UseLoginReturn {
 }
 
 const useLogin = (): UseLoginReturn => {
-    const { form, onChange, error, updateError } = useForm(
+    const {form, onChange, error, updateError} = useForm<LoginForm>(
         {
             email: '',
             password: '',
         },
         {
             email: (value) => {
-                if (!value) {
-                    return { message: 'Email is required' };
-                }
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                    return { message: 'Email is not valid' };
-                }
-                return { message: '' };
+                if (!value) return {message: 'Email is required'};
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return {message: 'Email is not valid'};
+                return {message: ''};
             },
             password: (value) => {
-                if (!value) {
-                    return { message: 'Password is required' };
-                }
-                if (value.length < 8) {
-                    return {
-                        message: 'Password must be at least 8 characters',
-                    };
-                }
-
-                return { message: '' };
+                if (!value) return {message: 'Password is required'};
+                if (value.length < 8) return {message: 'Password must be at least 8 characters'};
+                return {message: ''};
             },
         },
     );
@@ -45,35 +38,33 @@ const useLogin = (): UseLoginReturn => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const response = await fetch('https://auth-qa.qencode.com/v1/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(form),
-        });
-
-        if (response.status !== 200) {
-            const data = await response.json();
-            if (typeof data.detail === 'string') {
-                updateError('email', data.detail);
-                return;
-            }
-            data.detail.forEach((detail: { error: string; field_name: string }) => {
-                updateError(detail.field_name, detail.error);
+        try {
+            const {data} = await axios.post(`${BASE_URL}/login`, form, {
+                headers: {'Content-Type': 'application/json'},
             });
-            return;
+
+            localStorage.setItem('token', data.access_token);
+            localStorage.setItem('refreshToken', data.refresh_token);
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                const responseError = error.response?.data;
+                if (typeof responseError.detail === 'string') {
+                    updateError('email', responseError.detail);
+                } else {
+                    responseError.detail.forEach(({error, field_name}: { error: string; field_name: string }) => {
+                        updateError(field_name, error);
+                    });
+                }
+            } else {
+                console.error('Login failed:', error);
+            }
         }
-
-        const data = await response.json();
-
-        localStorage.setItem('token', data.access_token);
-        localStorage.setItem('refreshToken', data.refresh_token);
     };
 
     const isShowPassword = !!(form.email && !error?.email);
 
-    return { form, onChange, error, handleSubmit, isShowPassword };
+
+    return {form, onChange, error, handleSubmit, isShowPassword};
 };
 
 export default useLogin;
