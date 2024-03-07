@@ -5,7 +5,7 @@ import logo from "../assets/logo.svg";
 
 export const Layout = ({children}: { children: React.ReactNode }) => {
     return (
-        <div className={classes['layout']}>
+        <div className={classes['layouts']}>
             <img className={classes['logo']} src={logo} alt='Logo'/>
             {children}
         </div>
