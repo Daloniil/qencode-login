@@ -1,0 +1,22 @@
+.layouts {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding-top: clamp(40px, 20%, 180px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 430px) {
+    padding: 85px 10px 0 10px;
+    max-width: none;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__logo {
+    width: 178px;
+  }
+
+}

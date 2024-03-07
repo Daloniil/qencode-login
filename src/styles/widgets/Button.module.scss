@@ -1,0 +1,46 @@
+.button {
+	width: 100%;
+	min-height: 48px;
+	font-size: 16px;
+	line-height: 21px;
+	font-weight: 500;
+	border: none;
+	background-color: #316fea;
+	color: #ffffff;
+	border-radius: 8px;
+	transition: background-color 0.2s ease-in-out;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #1f53ba;
+	}
+
+	&:disabled {
+		background-color: #d3d3d3;
+		color: #a9a9a9;
+	}
+
+	&:active {
+		background-color: #316fea;
+	}
+
+	&--secondary {
+		background-color: #ffffff;
+		color: #060e1e;
+		border: 1px solid #d3d8dc;
+
+		&:hover {
+			background-color: #f5f5f5;
+		}
+
+		&:active {
+			background-color: #ffffff;
+		}
+
+		&:disabled {
+			background-color: #ffffff;
+			color: #a9a9a9;
+			border: 1px solid #d3d8dc;
+		}
+	}
+}

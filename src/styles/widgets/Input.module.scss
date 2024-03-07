@@ -1,0 +1,48 @@
+.container {
+	position: relative;
+}
+
+.input {
+	width: 100%;
+	min-height: 48px;
+	border-radius: 6px;
+	border: 1px solid #d3d8dc;
+	padding: 0 12px;
+	box-sizing: border-box;
+	font-size: 15px;
+
+	&::placeholder {
+		color: #a1abb5;
+		font-weight: 400;
+	}
+
+	&--error {
+		border-color: #ff4d4f;
+		outline: none;
+	}
+
+	&__error-label {
+		color: #ff4d4f;
+		font-size: 12px;
+		margin-top: 4px;
+	}
+
+	&__password-icon {
+		position: absolute;
+		top: 24px;
+		right: 12px;
+		transform: translateY(-50%);
+		cursor: pointer;
+	}
+
+	&__password-icon-with-label {
+		top: 45px;
+	}
+
+	&__label {
+		font-size: 15px;
+		line-height: 21px;
+		color: #060e1e;
+		margin-bottom: 8px;
+	}
+}
