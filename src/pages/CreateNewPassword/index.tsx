@@ -2,10 +2,10 @@ import classes from '../../styles/features/Password.module.scss';
 import {Title} from "../../widgets/Title";
 import {Input} from "../../widgets/Input";
 import {Button} from "../../widgets/Button";
-import {useCreateNewPassword} from "../../hooks/useCreateNewPassword.ts";
+import {useCreatePassword} from "../../hooks/useCreatePassword.ts";
 
 export const CreateNewPassword = () => {
-    const {form, onChange, error, handleSubmit} = useCreateNewPassword();
+    const {form, onChange, error, handleSubmit} = useCreatePassword();
 
     return (
         <>

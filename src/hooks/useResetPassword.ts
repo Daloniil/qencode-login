@@ -1,18 +1,11 @@
+import React from "react";
 import axios from 'axios';
 import useForm from './useForm.ts';
 import {BASE_URL} from "../utils/axios.ts";
+import {initialResetPasswordState, validationsResetPassword} from "../utils/validations.tsx";
 
-const useResetPassword = () => {
-    const {form, onChange, error, updateError} = useForm(
-        {email: ''},
-        {
-            email: (value) => {
-                if (!value) return {message: 'Email is required'};
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return {message: 'Email is not valid'};
-                return {message: ''};
-            },
-        },
-    );
+export const useResetPassword = () => {
+    const {form, onChange, error, updateError} = useForm(initialResetPasswordState, validationsResetPassword);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -49,4 +42,3 @@ const useResetPassword = () => {
     return {form, onChange, error, handleSubmit};
 };
 
-export default useResetPassword;

@@ -1,13 +1,13 @@
 import {RouterProvider} from 'react-router-dom';
 import {router} from "./utils/router.tsx";
-import {Layouts} from "./layouts";
+import {Layout} from "./layout";
 
 function App() {
     return (
         <>
-            <Layouts>
+            <Layout>
                 <RouterProvider router={router}/>
-            </Layouts>
+            </Layout>
         </>
     )
 }

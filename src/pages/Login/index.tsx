@@ -7,8 +7,8 @@ import {Title} from "../../widgets/Title";
 import {Input} from "../../widgets/Input";
 import {IconButton} from "../../widgets/IconButton";
 import {Button} from "../../widgets/Button";
+import {useLogin} from "../../hooks/useLogin.ts";
 
-import useLogin from '../../hooks/useLogin';
 
 export const Login = () => {
     const { form, onChange, error, handleSubmit, isShowPassword } = useLogin();

@@ -1,19 +1,12 @@
 import useForm from './useForm.ts';
 import axios from 'axios';
 import {BASE_URL} from "../utils/axios.ts";
+import {initialCreatePasswordState, passwordValidate} from "../utils/validations.tsx";
 
-export const useCreateNewPassword = () => {
-    const {form, onChange, error, updateError} = useForm(
+export const useCreatePassword = () => {
+    const {form, onChange, error, updateError} = useForm(initialCreatePasswordState,
         {
-            password: '',
-            password_confirm: '',
-        },
-        {
-            password: (value) => {
-                if (!value) return {message: 'Password is required'};
-                if (value.length < 8) return {message: 'Password must be at least 8 characters'};
-                return {message: ''};
-            },
+            password: passwordValidate,
             password_confirm: (value) => {
                 if (!value) return {message: 'Password is required'};
                 if (value !== form.password) return {message: 'Passwords do not match'};

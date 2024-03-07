@@ -1,8 +1,8 @@
 import classes from '../../styles/features/Password.module.scss';
-import useResetPassword from '../../hooks/useResetPassword.ts';
 import {Title} from "../../widgets/Title";
 import {Input} from "../../widgets/Input";
 import {Button} from "../../widgets/Button";
+import {useResetPassword} from "../../hooks/useResetPassword.ts";
 
 export const ResetPassword = () => {
 	const { form, onChange, error, handleSubmit } = useResetPassword();
